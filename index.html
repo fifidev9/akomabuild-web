@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="Akoma — Ghana's Construction AI. AI BOQ Scanner, Live ROI Tracking, MoMo Payments, Foreman App. Built for Ghanaian builders."/>
+<meta property="og:title" content="Akoma — Ghana Construction AI"/>
+<meta property="og:description" content="Stop building blind. AI BOQ Scanner. Live ROI. MoMo Payments. Built for Ghana."/>
+<title>Akoma — Ghana Construction AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --orange:#FF6B00;
+  --orange-light:#FF8C00;
+  --dark:#0A0A0A;
+  --darker:#060606;
+  --card:#111111;
+  --border:#1E1E1E;
+  --border-light:#2A2A2A;
+  --text:#F2EDE4;
+  --muted:#666;
+  --muted-light:#888;
+  --green:#00C96B;
+  --yellow:#FFD200;
+  --blue:#3B8BFF;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;line-height:1.6;}
+
+/* ── NOISE TEXTURE ── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5vw;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(10,10,10,.92);backdrop-filter:blur(20px);}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo-mark{width:32px;height:32px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.nav-wordmark{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--orange);}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{color:var(--muted-light);font-size:13px;text-decoration:none;letter-spacing:.5px;transition:color .2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{background:var(--orange);color:#000;padding:9px 22px;border-radius:6px;font-weight:700;font-size:13px;text-decoration:none;letter-spacing:.5px;transition:all .2s;}
+.nav-cta:hover{background:var(--orange-light);transform:translateY(-1px);}
+.nav-mobile-hide{display:flex;}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 5vw 80px;position:relative;overflow:hidden;}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.3;}
+.hero-glow{position:absolute;top:20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(255,107,0,.12) 0%,transparent 70%);pointer-events:none;}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:#FF6B0015;border:1px solid #FF6B0030;color:var(--orange);padding:6px 14px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-family:'Space Mono',monospace;margin-bottom:28px;}
+.hero-tag-dot{width:6px;height:6px;background:var(--orange);border-radius:50%;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,9vw,130px);line-height:.95;letter-spacing:2px;margin-bottom:24px;}
+.hero h1 em{color:var(--orange);font-style:normal;position:relative;}
+.hero h1 em::after{content:'';position:absolute;bottom:4px;left:0;right:0;height:3px;background:var(--orange);opacity:.4;}
+.hero-sub{font-size:clamp(16px,2vw,20px);color:var(--muted-light);max-width:560px;line-height:1.7;margin-bottom:40px;font-weight:300;}
+.hero-sub strong{color:var(--text);font-weight:500;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:64px;}
+.btn-primary{background:var(--orange);color:#000;padding:15px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;letter-spacing:.5px;transition:all .2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-primary:hover{background:var(--orange-light);transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,107,0,.3);}
+.btn-ghost{background:none;border:1px solid var(--border-light);color:var(--muted-light);padding:15px 32px;border-radius:8px;font-weight:500;font-size:15px;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-ghost:hover{border-color:var(--muted);color:var(--text);}
+.hero-stats{display:flex;gap:40px;flex-wrap:wrap;}
+.stat{border-left:2px solid var(--orange);padding-left:16px;}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--orange);line-height:1;}
+.stat-label{font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+
+/* ── TICKER ── */
+.ticker{background:var(--orange);padding:12px 0;overflow:hidden;white-space:nowrap;}
+.ticker-inner{display:inline-flex;animation:ticker 25s linear infinite;}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;color:#000;padding:0 32px;}
+.ticker-sep{color:rgba(0,0,0,.4);}
+
+/* ── SECTION BASE ── */
+section{padding:100px 5vw;position:relative;}
+.section-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,64px);line-height:1;letter-spacing:1px;margin-bottom:20px;}
+.section-sub{color:var(--muted-light);font-size:16px;max-width:560px;line-height:1.7;font-weight:300;}
+
+/* ── PROBLEM ── */
+.problem{background:var(--darker);}
+.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:56px;}
+.problem-card{background:var(--card);padding:36px 32px;}
+.problem-icon{font-size:32px;margin-bottom:20px;}
+.problem-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;margin-bottom:10px;color:var(--text);}
+.problem-desc{font-size:14px;color:var(--muted-light);line-height:1.7;font-weight:300;}
+.problem-cost{font-family:'Space Mono',monospace;font-size:12px;color:var(--orange);margin-top:14px;padding-top:14px;border-top:1px solid var(--border-light);}
+
+/* ── FEATURES ── */
+.features-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:56px;}
+.feature-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:32px;position:relative;overflow:hidden;transition:border-color .3s,transform .3s;}
+.feature-card:hover{border-color:#FF6B0044;transform:translateY(-3px);}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--orange),transparent);opacity:0;transition:opacity .3s;}
+.feature-card:hover::before{opacity:1;}
+.feature-card.featured{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;background:linear-gradient(135deg,#111 0%,#0d0d0d 100%);border-color:#FF6B0033;}
+.feature-num{font-family:'Space Mono',monospace;font-size:11px;color:var(--orange);letter-spacing:2px;margin-bottom:20px;opacity:.7;}
+.feature-icon{font-size:40px;margin-bottom:16px;display:block;}
+.feature-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;margin-bottom:10px;}
+.feature-desc{font-size:14px;color:var(--muted-light);line-height:1.7;font-weight:300;}
+.feature-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;}
+.ftag{font-size:10px;font-family:'Space Mono',monospace;letter-spacing:1px;padding:4px 10px;border-radius:4px;border:1px solid var(--border-light);color:var(--muted);}
+.feature-mockup{background:#0d0d0d;border:1px solid var(--border-light);border-radius:12px;padding:20px;font-family:'Space Mono',monospace;font-size:12px;}
+.mock-line{padding:4px 0;color:var(--muted);border-bottom:1px solid var(--border);}
+.mock-line:last-child{border-bottom:none;}
+.mock-line span{color:var(--orange);}
+.mock-line .green{color:var(--green);}
+.mock-line .yellow{color:var(--yellow);}
+
+/* ── WHO ── */
+.who{background:var(--darker);}
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;}
+.who-card{border:1px solid var(--border);border-radius:14px;padding:32px;position:relative;overflow:hidden;}
+.who-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;}
+.who-card.card-diaspora::after{background:var(--orange);}
+.who-card.card-investor::after{background:var(--green);}
+.who-card.card-contractor::after{background:var(--blue);}
+.who-flag{font-size:28px;margin-bottom:16px;}
+.who-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;margin-bottom:8px;}
+.who-desc{font-size:13px;color:var(--muted-light);line-height:1.7;font-weight:300;margin-bottom:20px;}
+.who-quote{font-size:13px;color:var(--muted-light);font-style:italic;padding:14px 16px;background:#0d0d0d;border-left:3px solid var(--orange);border-radius:0 8px 8px 0;line-height:1.6;}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;}
+.price-card{border:1px solid var(--border);border-radius:14px;padding:36px 32px;position:relative;transition:border-color .3s;}
+.price-card.featured-price{border-color:var(--orange);background:linear-gradient(160deg,#111 0%,#0d0d0d 100%);}
+.price-card.featured-price::before{content:'MOST POPULAR';position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--orange);color:#000;font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;padding:4px 16px;border-radius:0 0 8px 8px;}
+.price-tier{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--orange);margin-bottom:20px;text-transform:uppercase;}
+.price-amount{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;margin-bottom:4px;}
+.price-period{font-size:13px;color:var(--muted);margin-bottom:8px;}
+.price-setup{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border);}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
+.price-features li{font-size:13px;color:var(--muted-light);display:flex;align-items:flex-start;gap:10px;line-height:1.5;}
+.price-features li::before{content:'→';color:var(--orange);font-family:'Space Mono',monospace;font-size:11px;flex-shrink:0;margin-top:2px;}
+.price-cta{display:block;text-align:center;padding:13px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;transition:all .2s;letter-spacing:.5px;}
+.price-cta-primary{background:var(--orange);color:#000;}
+.price-cta-primary:hover{background:var(--orange-light);}
+.price-cta-ghost{border:1px solid var(--border-light);color:var(--muted-light);}
+.price-cta-ghost:hover{border-color:var(--muted);color:var(--text);}
+
+/* ── DIASPORA ── */
+.diaspora{background:var(--darker);overflow:hidden;}
+.diaspora-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.diaspora-flags{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;}
+.dflag{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:13px;color:var(--muted-light);}
+.diaspora-pain{margin-top:32px;display:flex;flex-direction:column;gap:12px;}
+.pain-item{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;}
+.pain-icon{font-size:20px;flex-shrink:0;}
+.pain-text{font-size:13px;color:var(--muted-light);line-height:1.6;}
+.diaspora-phone{background:var(--card);border:1px solid var(--border-light);border-radius:28px;padding:24px;max-width:320px;margin:0 auto;}
+.phone-notch{width:80px;height:6px;background:var(--border-light);border-radius:99px;margin:0 auto 20px;}
+.phone-screen{background:#0d0d0d;border-radius:16px;padding:16px;font-size:12px;}
+.phone-header{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--orange);letter-spacing:2px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;}
+.phone-roi{text-align:center;padding:20px 0;border-bottom:1px solid var(--border);}
+.phone-roi-num{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--green);line-height:1;}
+.phone-roi-label{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+.phone-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:11px;}
+.phone-row:last-child{border-bottom:none;}
+.phone-row-label{color:var(--muted);}
+.phone-row-val{color:var(--text);font-weight:500;}
+.phone-photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px;}
+.phone-photo{background:var(--border-light);border-radius:6px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:18px;}
+
+/* ── TESTIMONIAL ── */
+.testimonial{text-align:center;padding:100px 5vw;}
+.testimonial blockquote{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:1px;line-height:1.2;max-width:900px;margin:0 auto 32px;color:var(--text);}
+.testimonial blockquote em{color:var(--orange);font-style:normal;}
+.testimonial-author{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+
+/* ── CTA ── */
+.cta-section{background:var(--orange);padding:100px 5vw;text-align:center;position:relative;overflow:hidden;}
+.cta-section::before{content:'AKOMA AKOMA AKOMA AKOMA AKOMA AKOMA';position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:160px;color:rgba(0,0,0,.06);white-space:nowrap;letter-spacing:20px;pointer-events:none;}
+.cta-section h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,6vw,80px);letter-spacing:2px;color:#000;margin-bottom:16px;position:relative;}
+.cta-section p{font-size:18px;color:rgba(0,0,0,.7);margin-bottom:40px;position:relative;font-weight:300;}
+.cta-buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;}
+.btn-dark{background:#000;color:#fff;padding:16px 36px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;transition:all .2s;letter-spacing:.5px;}
+.btn-dark:hover{background:#1a1a1a;transform:translateY(-2px);}
+.btn-whatsapp{background:#25D366;color:#000;padding:16px 36px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;transition:all .2s;letter-spacing:.5px;display:flex;align-items:center;gap:8px;}
+.btn-whatsapp:hover{filter:brightness(1.1);transform:translateY(-2px);}
+
+/* ── FOOTER ── */
+footer{background:var(--darker);border-top:1px solid var(--border);padding:60px 5vw 40px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.footer-brand-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--orange);letter-spacing:3px;margin-bottom:12px;}
+.footer-brand-desc{font-size:13px;color:var(--muted);line-height:1.7;max-width:280px;font-weight:300;}
+.footer-col-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-links a{font-size:13px;color:var(--muted-light);text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:var(--text);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;}
+.footer-gh{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{opacity:0;animation:fadeUp .8s ease forwards;}
+.fade-up-1{animation-delay:.1s}
+.fade-up-2{animation-delay:.2s}
+.fade-up-3{animation-delay:.3s}
+.fade-up-4{animation-delay:.4s}
+.fade-up-5{animation-delay:.5s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .features-grid{grid-template-columns:1fr;}
+  .feature-card.featured{grid-template-columns:1fr;}
+  .who-grid{grid-template-columns:1fr;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .diaspora-inner{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .nav-mobile-hide{display:none;}
+}
+@media(max-width:600px){
+  section{padding:72px 5vw;}
+  .hero{padding:100px 5vw 60px;}
+  .footer-grid{grid-template-columns:1fr;}
+  .hero-stats{gap:24px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-mark">🏗</div>
+    <div class="nav-wordmark">AKOMA</div>
+  </div>
+  <div class="nav-links nav-mobile-hide">
+    <a href="#features">Features</a>
+    <a href="#who">Who It's For</a>
+    <a href="#pricing">Pricing</a>
+  </div>
+  <a href="https://akoma-backend-production.up.railway.app/akoma-dashboard.html" class="nav-cta">Get Started</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div style="position:relative;z-index:1;">
+    <div class="hero-tag fade-up fade-up-1">
+      <span class="hero-tag-dot"></span>
+      Built for Ghana · Powered by AI
+    </div>
+    <h1 class="fade-up fade-up-2">STOP<br/>BUILDING<br/><em>BLIND</em></h1>
+    <p class="hero-sub fade-up fade-up-3">
+      AI-powered construction management for <strong>Ghanaian investors, diaspora builders, and contractors.</strong> Live ROI. BOQ in 60 seconds. MoMo payments. Foreman accountability.
+    </p>
+    <div class="hero-actions fade-up fade-up-4">
+      <a href="https://akoma-backend-production.up.railway.app/akoma-dashboard.html" class="btn-primary">Start Building Smart →</a>
+      <a href="https://wa.me/233535419167?text=I want to learn more about Akoma" class="btn-ghost" target="_blank">
+        💬 WhatsApp Us
+      </a>
+    </div>
+    <div class="hero-stats fade-up fade-up-5">
+      <div class="stat">
+        <div class="stat-num">60s</div>
+        <div class="stat-label">BOQ from floor plan</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">GHS</div>
+        <div class="stat-label">Live ROI tracking</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">MTN</div>
+        <div class="stat-label">MoMo integrated</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">0%</div>
+        <div class="stat-label">Guesswork</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">AI BOQ SCANNER</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">LIVE ROI DASHBOARD</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">MTN MOMO PAYMENTS</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">FOREMAN PWA</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">GHANA 2026 RATES</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">OFFLINE SUPPORT</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">SITE PHOTO LOG</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">ACCRA WEATHER</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">AI BOQ SCANNER</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">LIVE ROI DASHBOARD</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">MTN MOMO PAYMENTS</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">FOREMAN PWA</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">GHANA 2026 RATES</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">OFFLINE SUPPORT</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">SITE PHOTO LOG</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">ACCRA WEATHER</span><span class="ticker-item ticker-sep">✦</span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="section-tag">The Problem</div>
+  <h2 class="section-title">GHANA'S CONSTRUCTION<br/>INDUSTRY IS BROKEN</h2>
+  <p class="section-sub">Every builder in Ghana faces the same four problems. Akoma fixes all of them.</p>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="problem-icon">🕳️</div>
+      <div class="problem-title">Building Blind</div>
+      <div class="problem-desc">You're sending GHS 50,000 to Ghana and hoping for the best. No photos, no updates, no accountability. Your contractor disappears for weeks.</div>
+      <div class="problem-cost">Average loss: GHS 40,000–120,000</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">📋</div>
+      <div class="problem-title">Manual BOQ</div>
+      <div class="problem-desc">Quantity surveyors take 2 weeks and charge GHS 3,000 for a Bill of Quantities. You need it today, for that floor plan sitting on your desk.</div>
+      <div class="problem-cost">Time lost: 10–15 working days</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">💸</div>
+      <div class="problem-title">Cash Leakage</div>
+      <div class="problem-desc">Materials that disappear. Labourers paid twice. Cement bags that never arrived. No payment trail, no receipts, no MoMo records linking money to work.</div>
+      <div class="problem-cost">Industry average: 20–30% budget overrun</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">📉</div>
+      <div class="problem-title">Unknown ROI</div>
+      <div class="problem-desc">You've spent GHS 280k to buy and GHS 90k to build. What's your current return? Nobody knows until the project is finished — and by then it's too late.</div>
+      <div class="problem-cost">Zero visibility until completion</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-tag">The Solution</div>
+  <h2 class="section-title">EVERYTHING YOU NEED.<br/>NOTHING YOU DON'T.</h2>
+  <p class="section-sub">Four tools. One platform. Built specifically for how Ghana builds.</p>
+
+  <div class="features-grid" style="margin-top:56px;">
+    <!-- Featured: BOQ Scanner -->
+    <div class="feature-card featured">
+      <div>
+        <div class="feature-num">01 — AI SCANNER</div>
+        <span class="feature-icon">📐</span>
+        <div class="feature-title">BOQ IN 60 SECONDS</div>
+        <p class="feature-desc">Drop any floor plan — architectural drawing, AutoCAD screenshot, phone photo of a sketch. Akoma's AI reads it and generates a full Ghana-standard Bill of Quantities with 2026 market rates, 7% wastage, and 15% currency contingency. In 60 seconds.</p>
+        <div class="feature-tags">
+          <span class="ftag">0.1125 M²/BLOCK</span>
+          <span class="ftag">1:6 LAYING MIX</span>
+          <span class="ftag">7% WASTAGE</span>
+          <span class="ftag">15% CONTINGENCY</span>
+          <span class="ftag">2026 GHS RATES</span>
+        </div>
+      </div>
+      <div class="feature-mockup">
+        <div class="mock-line">Scanning floor plan... <span>✓</span></div>
+        <div class="mock-line">Floor area: <span>142 m²</span></div>
+        <div class="mock-line">Sandcrete blocks: <span>3,840 units</span></div>
+        <div class="mock-line">Cement (laying): <span>128 bags</span></div>
+        <div class="mock-line">Iron rods Y12: <span>2.4 tons</span></div>
+        <div class="mock-line">Roofing sheets: <span>86 units</span></div>
+        <div class="mock-line">───────────────────</div>
+        <div class="mock-line">Subtotal: <span>GHS 847,532</span></div>
+        <div class="mock-line">15% contingency: <span class="yellow">GHS 127,130</span></div>
+        <div class="mock-line">GRAND TOTAL: <span class="green">GHS 974,662</span></div>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-num">02 — LIVE DASHBOARD</div>
+      <span class="feature-icon">📊</span>
+      <div class="feature-title">LIVE ROI GAUGE</div>
+      <p class="feature-desc">Every milestone completion updates your ROI in real time. Watch your investment grow as Foundation → Substructure → Roofing → Finishes lock in value. See exactly how far you are from your target ARV.</p>
+      <div class="feature-tags">
+        <span class="ftag">LIVE GHS/USD RATE</span>
+        <span class="ftag">BUDGET BURN</span>
+        <span class="ftag">MILESTONE TRACKER</span>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-num">03 — MOMO PAYMENTS</div>
+      <span class="feature-icon">📱</span>
+      <div class="feature-title">PAY ON SITE</div>
+      <p class="feature-desc">Foreman pays suppliers directly from the app via MTN MoMo. Every payment logged, timestamped, linked to a milestone. Full payment history visible to investors. No more cash-in-envelope mysteries.</p>
+      <div class="feature-tags">
+        <span class="ftag">MTN MOMO</span>
+        <span class="ftag">TELECEL</span>
+        <span class="ftag">AIRTELTIGO</span>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-num">04 — FOREMAN APP</div>
+      <span class="feature-icon">👷🏾</span>
+      <div class="feature-title">SITE LEAD PWA</div>
+      <p class="feature-desc">A mobile-first Progressive Web App that works on any Android or iPhone. Daily logs, site photos, material delivery scans, milestone completion — all offline-capable. Syncs automatically when back online.</p>
+      <div class="feature-tags">
+        <span class="ftag">WORKS OFFLINE</span>
+        <span class="ftag">4-DIGIT PIN</span>
+        <span class="ftag">ANDROID + IOS</span>
+        <span class="ftag">ACCRA WEATHER</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO -->
+<section class="who" id="who">
+  <div class="section-tag">Who It's For</div>
+  <h2 class="section-title">BUILT FOR THREE<br/>KINDS OF BUILDER</h2>
+  <div class="who-grid">
+    <div class="who-card card-diaspora">
+      <div class="who-flag">🌍✈️</div>
+      <div class="who-title">Diaspora Builders</div>
+      <p class="who-desc">You're in London, Toronto, or Houston. You're sending money home to build. Right now you're relying on WhatsApp voice notes and hope. Akoma gives you eyes on your site, 24 hours a day.</p>
+      <div class="who-quote">"I can see every photo my foreman takes, every cedi spent, and my live ROI — from my phone in the UK."</div>
+    </div>
+    <div class="who-card card-investor">
+      <div class="who-flag">🇬🇭💰</div>
+      <div class="who-title">Accra Investors</div>
+      <p class="who-desc">You're flipping properties in East Legon, Oyarifa, Airport Hills. You're managing contractors who know you can't be on site every day. Akoma is your eyes, your accountant, and your quantity surveyor — in one app.</p>
+      <div class="who-quote">"My foreman logs work every morning. I see the photos before I've had breakfast."</div>
+    </div>
+    <div class="who-card card-contractor">
+      <div class="who-flag">🏗️📐</div>
+      <div class="who-title">Contractors & Companies</div>
+      <p class="who-desc">You're managing 5 projects simultaneously. You need to generate BOQs fast for client proposals. You need your site foremen accountable. Akoma runs your back office while you run the sites.</p>
+      <div class="who-quote">"I generate a full BOQ for a client proposal in 60 seconds. Used to take me two weeks."</div>
+    </div>
+  </div>
+</section>
+
+<!-- DIASPORA CALLOUT -->
+<section class="diaspora">
+  <div class="diaspora-inner">
+    <div>
+      <div class="section-tag">For The Diaspora</div>
+      <h2 class="section-title">YOU'RE 5,000KM<br/>AWAY. ACT LIKE<br/>YOU'RE <em style="color:var(--orange);font-style:normal;">ON SITE.</em></h2>
+      <div class="diaspora-flags">
+        <span class="dflag">🇬🇧 UK</span>
+        <span class="dflag">🇺🇸 USA</span>
+        <span class="dflag">🇨🇦 Canada</span>
+        <span class="dflag">🇩🇪 Germany</span>
+        <span class="dflag">🇳🇱 Netherlands</span>
+      </div>
+      <p style="font-size:15px;color:var(--muted-light);line-height:1.7;font-weight:300;margin-bottom:24px;">Ghana receives over $4.7 billion in remittances every year. A huge portion goes to construction. Most of it goes with zero visibility, zero accountability, and zero recourse when things go wrong.</p>
+      <div class="diaspora-pain">
+        <div class="pain-item">
+          <span class="pain-icon">📞</span>
+          <div class="pain-text"><strong style="color:var(--text);">Before Akoma:</strong> "The contractor called. He needs another GHS 30,000. He says the cement prices went up." No proof, no receipts, no choice.</div>
+        </div>
+        <div class="pain-item">
+          <span class="pain-icon">📸</span>
+          <div class="pain-text"><strong style="color:var(--green);">After Akoma:</strong> Your foreman's 7am site photo lands on your phone in London. Materials logged on delivery. Every payment on the MoMo ledger.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="diaspora-phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="phone-header">
+            <span>AKOMA</span>
+            <span style="font-size:10px;color:var(--green);">● LIVE</span>
+          </div>
+          <div style="font-size:9px;color:var(--muted);margin-bottom:12px;font-family:'Space Mono',monospace;">OYARIFA FLIP ALPHA · ACCRA</div>
+          <div class="phone-roi">
+            <div class="phone-roi-num">9.6%</div>
+            <div class="phone-roi-label">Live ROI</div>
+          </div>
+          <div class="phone-row"><span class="phone-row-label">Asset Value</span><span class="phone-row-val" style="color:var(--green);">GHS 420k</span></div>
+          <div class="phone-row"><span class="phone-row-label">Spent</span><span class="phone-row-val">GHS 90k</span></div>
+          <div class="phone-row"><span class="phone-row-label">Milestones</span><span class="phone-row-val">2 / 6 done</span></div>
+          <div class="phone-row"><span class="phone-row-label">Weather</span><span class="phone-row-val" style="color:var(--green);">✓ Safe to Pour</span></div>
+          <div style="font-size:9px;color:var(--muted);margin:12px 0 8px;font-family:'Space Mono',monospace;letter-spacing:1px;">TODAY'S SITE PHOTOS</div>
+          <div class="phone-photo-grid">
+            <div class="phone-photo">🏗</div>
+            <div class="phone-photo">🧱</div>
+            <div class="phone-photo">📦</div>
+            <div class="phone-photo">⚒️</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-tag">Pricing</div>
+  <h2 class="section-title">STRAIGHTFORWARD.<br/>NO SURPRISES.</h2>
+  <p class="section-sub">One setup fee. One monthly charge. Cancel any time. Cheaper than one bad contractor decision.</p>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-tier">Foreman</div>
+      <div class="price-amount">Free</div>
+      <div class="price-period">forever</div>
+      <div class="price-setup">No setup fee</div>
+      <ul class="price-features">
+        <li>Daily work logs</li>
+        <li>Site photo capture</li>
+        <li>Materials tracking</li>
+        <li>MoMo payments up to GHS 5,000/mo</li>
+        <li>1 active project</li>
+        <li>Offline support</li>
+      </ul>
+      <a href="https://akoma-backend-production.up.railway.app/foreman-pwa.html" class="price-cta price-cta-ghost">Get the Foreman App</a>
+    </div>
+    <div class="price-card featured-price">
+      <div class="price-tier">Pro</div>
+      <div class="price-amount" style="color:var(--orange);">GHS 350</div>
+      <div class="price-period">per project / month</div>
+      <div class="price-setup">+ GHS 500 one-time setup</div>
+      <ul class="price-features">
+        <li>Everything in Foreman</li>
+        <li>Investor ROI dashboard</li>
+        <li>AI BOQ Scanner (unlimited)</li>
+        <li>Unlimited MoMo payments</li>
+        <li>Full payment history</li>
+        <li>Multi-foreman support</li>
+        <li>PDF reports for bank/investors</li>
+        <li>Live GHS/USD rate alerts</li>
+      </ul>
+      <a href="https://wa.me/233535419167?text=I want to start with Akoma Pro" class="price-cta price-cta-primary" target="_blank">Start Pro →</a>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Business</div>
+      <div class="price-amount">GHS 800</div>
+      <div class="price-period">per month</div>
+      <div class="price-setup">+ GHS 1,200 setup · up to 10 projects</div>
+      <ul class="price-features">
+        <li>Everything in Pro</li>
+        <li>Up to 10 active projects</li>
+        <li>Team accounts</li>
+        <li>Custom branding</li>
+        <li>Excel/CSV exports</li>
+        <li>Priority support</li>
+        <li>Onboarding call included</li>
+      </ul>
+      <a href="https://wa.me/233535419167?text=I am interested in Akoma Business" class="price-cta price-cta-ghost" target="_blank">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial">
+  <blockquote>"I scanned my floor plan at 9am. By 9:01 I had a <em>full BOQ</em> with every bag of cement, every block, every rod — priced at <em>2026 Ghana rates.</em>"</blockquote>
+  <div class="testimonial-author">Beta User · Real Estate Investor · Oyarifa, Accra</div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>READY TO BUILD SMART?</h2>
+  <p>Join Ghana's first AI-powered construction platform. Start free. Upgrade when you're ready.</p>
+  <div class="cta-buttons">
+    <a href="https://wa.me/233535419167?text=I want to start using Akoma" class="btn-whatsapp" target="_blank">
+      💬 WhatsApp to Get Started
+    </a>
+    <a href="/cdn-cgi/l/email-protection#9eedebeeeef1eceadefff5f1f3fffcebf7f2fab0fdf1f3" class="btn-dark">Email Us</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-logo">AKOMA</div>
+      <p class="footer-brand-desc">Ghana's first AI-powered construction management platform. Built for Ghanaian investors, diaspora builders, and contractors.</p>
+      <div style="margin-top:20px;font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);">
+        <div>📍 Accra, Ghana</div>
+        <div style="margin-top:6px;">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cca4a9a0a0a38cada7a3a1ade2aeb9a5a0a8">[email&#160;protected]</a></div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <ul class="footer-links">
+        <li><a href="#features">AI BOQ Scanner</a></li>
+        <li><a href="#features">ROI Dashboard</a></li>
+        <li><a href="#features">MoMo Payments</a></li>
+        <li><a href="#features">Foreman App</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="https://akoma-backend-production.up.railway.app/akoma-dashboard.html">About</a></li>
+        <li><a href="https://akoma-backend-production.up.railway.app/akoma-dashboard.html">Blog</a></li>
+        <li><a href="https://akoma-backend-production.up.railway.app/akoma-dashboard.html">Careers</a></li>
+        <li><a href="https://akoma-backend-production.up.railway.app/akoma-dashboard.html">Press</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Connect</div>
+      <ul class="footer-links">
+        <li><a href="https://wa.me/233535419167" target="_blank">WhatsApp</a></li>
+        <li><a href="https://akoma-backend-production.up.railway.app/akoma-dashboard.html">Instagram</a></li>
+        <li><a href="https://akoma-backend-production.up.railway.app/akoma-dashboard.html">LinkedIn</a></li>
+        <li><a href="https://akoma-backend-production.up.railway.app/akoma-dashboard.html">Facebook</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Akoma Build Ltd · Accra, Ghana · <a href="/privacy.html" style="color:var(--muted);text-decoration:none;">Privacy</a> · <a href="/terms.html" style="color:var(--muted);text-decoration:none;">Terms</a></div>
+    <div class="footer-gh">🇬🇭 Made in Ghana</div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Scroll reveal
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+  
