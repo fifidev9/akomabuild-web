@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Privacy Policy — Akoma Build</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--orange:#FF6B00;--dark:#0A0A0A;--card:#111;--border:#1E1E1E;--text:#F2EDE4;--muted:#888;}
+body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;}
+nav{background:#0A0A0A;border-bottom:1px solid var(--border);padding:0 5vw;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--orange);text-decoration:none;}
+.nav-back{color:var(--muted);font-size:13px;text-decoration:none;transition:color .2s;}
+.nav-back:hover{color:var(--text);}
+.container{max-width:760px;margin:0 auto;padding:60px 5vw 100px;}
+.page-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
+h1{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:1px;margin-bottom:8px;}
+.updated{font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+h2{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;color:var(--orange);margin:40px 0 12px;}
+p{color:#ccc;font-size:15px;margin-bottom:16px;font-weight:300;}
+ul{color:#ccc;font-size:15px;font-weight:300;padding-left:20px;margin-bottom:16px;}
+ul li{margin-bottom:8px;}
+.highlight{background:#FF6B0010;border:1px solid #FF6B0030;border-radius:10px;padding:16px 20px;margin:24px 0;}
+.highlight p{margin:0;color:var(--text);}
+a{color:var(--orange);text-decoration:none;}
+a:hover{text-decoration:underline;}
+footer{background:#060606;border-top:1px solid var(--border);padding:32px 5vw;text-align:center;font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">AKOMA</a>
+  <a href="/" class="nav-back">← Back to Home</a>
+</nav>
+<div class="container">
+  <div class="page-tag">Legal</div>
+  <h1>Privacy Policy</h1>
+  <div class="updated">Last updated: March 31, 2026 · Effective immediately</div>
+
+  <div class="highlight">
+    <p><strong>Plain English summary:</strong> We collect only what we need to run your construction projects. We don't sell your data. We don't show you ads. Your financial and site data is yours.</p>
+  </div>
+
+  <h2>1. Who We Are</h2>
+  <p>Akoma Build Ltd ("Akoma", "we", "us") operates the Akoma construction management platform at <a href="https://akomabuild.com">akomabuild.com</a>, including the investor dashboard, foreman PWA, and all associated API services. We are based in Accra, Ghana with operations serving customers globally, including the United States, United Kingdom, Canada, and across Africa.</p>
+
+  <h2>2. What Data We Collect</h2>
+  <p>We collect the following categories of information:</p>
+  <ul>
+    <li><strong>Account data:</strong> Your name, email address, and hashed password when you register</li>
+    <li><strong>Project data:</strong> Property details, purchase prices, construction budgets, target values, and GPS coordinates you enter</li>
+    <li><strong>Construction logs:</strong> Daily site logs, milestone completions, materials received, and worker counts submitted by foremen</li>
+    <li><strong>Site photos:</strong> Images captured through the Foreman app camera feature</li>
+    <li><strong>Floor plan images:</strong> Images uploaded for AI BOQ scanning (processed by Anthropic's Claude API)</li>
+    <li><strong>Payment data:</strong> MoMo transaction records including amounts, phone numbers, and payment status</li>
+    <li><strong>Usage data:</strong> API request logs for security and performance monitoring</li>
+  </ul>
+
+  <h2>3. How We Use Your Data</h2>
+  <ul>
+    <li>To provide the Akoma platform and all its features</li>
+    <li>To calculate live ROI and project analytics for your investments</li>
+    <li>To process BOQ generation via AI analysis of your floor plans</li>
+    <li>To facilitate MoMo payments between project participants</li>
+    <li>To send you important service notifications (no marketing without consent)</li>
+    <li>To improve platform reliability and fix bugs</li>
+  </ul>
+
+  <h2>4. AI Processing (BOQ Scanner)</h2>
+  <p>When you upload a floor plan for BOQ scanning, the image is sent to Anthropic's Claude API for analysis. This processing is governed by <a href="https://www.anthropic.com/privacy" target="_blank">Anthropic's Privacy Policy</a>. We do not store floor plan images on our servers after processing — only the resulting BOQ data is saved to your project.</p>
+
+  <h2>5. MoMo Payment Data</h2>
+  <p>Payment transactions are processed through the MTN Mobile Money API. Phone numbers and transaction amounts are logged in our database for your payment history. We do not store full MoMo credentials or PIN numbers. Payment processing is subject to <a href="https://mtn.com.gh" target="_blank">MTN Ghana's terms</a>.</p>
+
+  <h2>6. Data Storage and Security</h2>
+  <ul>
+    <li>All data is stored on Railway's cloud infrastructure with encrypted connections (TLS/SSL)</li>
+    <li>Passwords are hashed using bcrypt — we cannot read your password</li>
+    <li>API access requires JWT authentication tokens that expire after 24 hours</li>
+    <li>Database backups are performed automatically by Railway</li>
+    <li>We do not store payment card numbers or full MoMo credentials</li>
+  </ul>
+
+  <h2>7. Data Sharing</h2>
+  <p>We do not sell, rent, or trade your personal data. We share data only with:</p>
+  <ul>
+    <li><strong>Anthropic</strong> — for floor plan BOQ processing only</li>
+    <li><strong>MTN MoMo API</strong> — for payment processing only</li>
+    <li><strong>Railway</strong> — our cloud hosting provider</li>
+    <li><strong>Law enforcement</strong> — only when legally required under Ghanaian or applicable law</li>
+  </ul>
+
+  <h2>8. Your Rights</h2>
+  <p>You have the right to:</p>
+  <ul>
+    <li><strong>Access</strong> — request a copy of all data we hold about you</li>
+    <li><strong>Correction</strong> — update incorrect data in your account</li>
+    <li><strong>Deletion</strong> — request deletion of your account and all associated data</li>
+    <li><strong>Portability</strong> — export your project data as CSV</li>
+    <li><strong>Objection</strong> — opt out of any non-essential data processing</li>
+  </ul>
+  <p>To exercise any of these rights, email us at <a href="mailto:privacy@akomabuild.com">privacy@akomabuild.com</a> or WhatsApp <a href="https://wa.me/233535419167">+233 535 419 167</a>.</p>
+
+  <h2>9. Ghana Data Protection Act</h2>
+  <p>We comply with Ghana's Data Protection Act, 2012 (Act 843). We are committed to registering with the Data Protection Commission as required. If you believe we have violated your data protection rights under Ghanaian law, you may contact the Data Protection Commission at <a href="https://www.dataprotection.org.gh" target="_blank">dataprotection.org.gh</a>.</p>
+
+  <h2>10. GDPR (UK & EU Users)</h2>
+  <p>If you are located in the United Kingdom or European Union, you have additional rights under GDPR/UK GDPR. Our legal basis for processing your data is contractual necessity (to provide the service you signed up for). You may lodge a complaint with your local data protection authority.</p>
+
+  <h2>11. California Privacy (CCPA)</h2>
+  <p>If you are a California resident, you have the right to know what personal information we collect, request deletion, and opt out of sale (we do not sell data). Contact us at <a href="mailto:privacy@akomabuild.com">privacy@akomabuild.com</a> to exercise your rights.</p>
+
+  <h2>12. Cookies</h2>
+  <p>We use only essential cookies and browser localStorage to maintain your login session. We do not use advertising cookies, tracking pixels, or third-party analytics. You can clear localStorage at any time in your browser settings.</p>
+
+  <h2>13. Children's Privacy</h2>
+  <p>Akoma is not intended for users under 18 years of age. We do not knowingly collect data from minors.</p>
+
+  <h2>14. Changes to This Policy</h2>
+  <p>We will notify registered users by email of any material changes to this policy at least 14 days before they take effect. Continued use of Akoma after changes take effect constitutes acceptance.</p>
+
+  <h2>15. Contact Us</h2>
+  <p>For any privacy questions or requests:</p>
+  <ul>
+    <li>Email: <a href="mailto:privacy@akomabuild.com">privacy@akomabuild.com</a></li>
+    <li>WhatsApp: <a href="https://wa.me/233535419167">+233 535 419 167</a></li>
+    <li>Address: Accra, Ghana</li>
+  </ul>
+</div>
+<footer>© 2026 Akoma Build Ltd · Accra, Ghana · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></footer>
+</body>
+</html>
